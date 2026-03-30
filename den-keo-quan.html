@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đèn Kéo Quân - Bài Kiểm Tra Giữa Kỳ</title>
+    <style>
+        body { background: #1a1a1a; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        
+        /* Khung chứa đèn */
+        .stage { perspective: 1000px; width: 300px; height: 300px; }
+
+        /* Đèn kéo quân */
+        .lantern {
+            width: 100%; height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateLantern 10s linear infinite; /* Hiệu ứng quay */
+        }
+
+        /* Dừng quay khi di chuột vào */
+        .lantern.paused { animation-play-state: paused; }
+
+        @keyframes rotateLantern {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        /* Các mặt của đèn (6 hình) */
+        .face {
+            position: absolute;
+            width: 200px; height: 250px;
+            left: 50px;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid gold;
+            opacity: 0.9;
+        }
+
+        /* Sắp xếp 6 mặt thành hình lục giác */
+        .face:nth-child(1) { transform: rotateY(0deg) translateZ(200px); background-image: url('https://picsum.photos/200/250?sig=1'); }
+        .face:nth-child(2) { transform: rotateY(60deg) translateZ(200px); background-image: url('https://picsum.photos/200/250?sig=2'); }
+        .face:nth-child(3) { transform: rotateY(120deg) translateZ(200px); background-image: url('https://picsum.photos/200/250?sig=3'); }
+        .face:nth-child(4) { transform: rotateY(180deg) translateZ(200px); background-image: url('https://picsum.photos/200/250?sig=4'); }
+        .face:nth-child(5) { transform: rotateY(240deg) translateZ(200px); background-image: url('https://picsum.photos/200/250?sig=5'); }
+        .face:nth-child(6) { transform: rotateY(300deg) translateZ(200px); background-image: url('https://picsum.photos/200/250?sig=6'); }
+    </style>
+</head>
+<body>
+
+    <div class="stage">
+        <div class="lantern" id="lantern">
+            <div class="face"></div>
+            <div class="face"></div>
+            <div class="face"></div>
+            <div class="face"></div>
+            <div class="face"></div>
+            <div class="face"></div>
+        </div>
+    </div>
+
+    <script>
+        const lantern = document.getElementById('lantern');
+
+        // Khi đưa chuột vào thì dừng lại
+        lantern.addEventListener('mouseenter', () => {
+            lantern.classList.add('paused');
+        });
+
+        // Khi rê chuột ra thì quay tiếp
+        lantern.addEventListener('mouseleave', () => {
+            lantern.classList.remove('paused');
+        });
+    </script>
+</body>
+</html>
